@@ -1,6 +1,7 @@
 """Validate synthetic inputs against the exact public server Compose source."""
 
 import argparse
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -47,12 +48,24 @@ def main():
     command = [
         "docker", "compose", "--project-directory", str(SOURCE),
         "--env-file", str(ROOT / "config/example.env"),
-        "-f", str(SOURCE / "compose.yaml"), "config",
+        "-f", str(SOURCE / "compose.yaml"), "config", "--format", "json",
     ]
-    if not args.render:
-        command.append("--quiet")
-    subprocess.run(command, env=environment, check=True, timeout=30)
-    if not args.render:
+    configured = json.loads(subprocess.check_output(command, env=environment, timeout=30))
+    server = configured["services"]["nddev-sync-server"]
+    assert server["build"]["args"]["NDS_SOURCE_COMMIT"] == commit
+    assert len(server["ports"]) == 1
+    port = server["ports"][0]
+    assert (port["host_ip"], port["target"], port["published"], port["protocol"]) == (
+        "127.0.0.1", 8443, "443", "tcp",
+    ), "The example must stay on loopback"
+    assert server["read_only"] and server["cap_drop"] == ["ALL"]
+    assert configured["networks"]["database"]["internal"]
+    assert "@sha256:" in configured["services"]["postgres"]["image"]
+    assert configured["services"]["migrate"]["secrets"][0]["source"] == "migration_database_url"
+    assert server["environment"]["DATABASE_URL_FILE"] == "/run/secrets/runtime_database_url"
+    if args.render:
+        print(json.dumps(configured, indent=2))
+    else:
         print("Synthetic inputs and exact upstream Compose configuration valid; no services started.")
 
 
