@@ -43,6 +43,9 @@ is performed by authorized native clients, rather than by this server example.
 Public CI uses GitHub-hosted Linux and only these synthetic inputs. Private
 estate validation belongs on the organization's self-hosted runners. A passing
 configuration check is not live deployment or authenticated client acceptance.
+The adopted corporate structure validator is prepared separately for authorized
+maintainers (`nddev check --root .`); public CI does not fetch that private tool
+or require a credential to validate the example.
 
 [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example/releases)
 is the release journal. This source example does not publish a server release.
