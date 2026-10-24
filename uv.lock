@@ -1,0 +1,8 @@
+version = 1
+revision = 5
+requires-python = ">=3.15"
+
+[[package]]
+name = "nddev-device-sync-estate-example"
+version = "0.0.1a0"
+source = { virtual = "." }

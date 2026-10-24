@@ -1,0 +1,31 @@
+name: main-ci
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: main-validation
+  cancel-in-progress: false
+
+jobs:
+  configuration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          submodules: true
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
+        with:
+          version: '0.13.5'
+          python-version-file: .python-version
+          enable-cache: 'false'
+      - run: uv run --locked python scripts/check.py
+      - name: Check the adopted repository structure
+        run: uv tool run --from git+https://github.com/NDDev-Technocracy-Standarts/std-0001-github-repository-structure@be975ff2a7d8e69f14e6f86455ae0b5694f7b4c8 nddev check --root .
