@@ -27,7 +27,7 @@ estate, contacts a server, starts maintenance or creates credentials.
 
 ## Self-host NDS
 
-Use the [selected server's self-hosting guide](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server/blob/2d4e573d23831bc204660dafd95a549ea3334d52/docs/self-hosting.md)
+Use the [selected server's self-hosting guide](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-server/blob/1b58725731088ad13b4a87d0bbb3cd61af49f76a/docs/self-hosting.md)
 to prepare separate migration/runtime database credentials, TLS and optional
 identity configuration outside Git. Copy `config/example.env` into your private
 estate, replace its `.invalid` hostname and operator-owned directory references,
