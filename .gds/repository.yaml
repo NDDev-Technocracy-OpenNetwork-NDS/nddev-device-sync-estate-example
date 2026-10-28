@@ -1,0 +1,55 @@
+schema_version: 1
+repository:
+  id: repo_01M628A83NKV776BFBB5ZKC651
+  display_name: nddev-device-sync-estate-example
+  roles:
+  - project
+  - module
+  - superproject
+  lifecycle: active
+provider:
+  type: github
+  installation: installation:github-nddev-technocracy-opennetwork-nds
+  repository_id: 1431867205
+  owner: NDDev-Technocracy-OpenNetwork-NDS
+  name: nddev-device-sync-estate-example
+classification:
+  portfolios:
+  - portfolio:nddev-technocracy-opennetwork-nds
+  visibility_contract: public
+  data_classification: public
+product:
+  purpose: Synthetic self-hosting configuration with exact public server source.
+policy:
+  profiles:
+  - repository-default
+  - opennetwork-default
+  rollout_ring: standard
+git:
+  default_branch: main
+  integration: pull-request
+  branch_model: task-branches
+  handoff_pr: preferred
+  cleanup: merged-only
+agent:
+  context_profile: project-default
+  generated_agents: false
+  serena:
+    enabled: false
+    provenance_required: false
+release:
+  mode: version-tag
+  tag_style: v-semver
+module:
+  contract: public
+  consumption:
+  - git-submodule
+  compatibility: commit-contract
+  pin_policy: default-branch-commit
+  publication:
+    github_release: optional
+  development: embedded
+relationships:
+- type: git-submodule-consumer
+  target: repo_01M4R3MH0JRJDSZHFCXVKMF12W
+  gitmodules_name: modules/server
