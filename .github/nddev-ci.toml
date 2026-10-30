@@ -1,0 +1,10 @@
+schema = 1
+profiles = ["workflows"]
+
+[timeouts]
+workflows = 120
+
+[extras.secrets]
+purpose = "Check the public example's complete source history for credential material."
+command = ["@library", "secrets-check"]
+timeout = 120
