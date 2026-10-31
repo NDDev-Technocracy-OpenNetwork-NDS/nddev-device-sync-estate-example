@@ -40,6 +40,14 @@ Existing PostgreSQL data must be preserved during updates; changing a source pin
 does not authorize replacing volumes or rotating keys. Client Git synchronization
 is performed by authorized native clients, rather than by this server example.
 
+Public CI keeps the native locked configuration check and adds shared workflow
+and secret checks through [the caller contract](.github/nddev-ci.toml).
+The workflow files select the immutable public implementation and keep the short PR
+and integrated-main phases. Complete checkout history is required by the secret
+check. The shared library prepares its own isolated runtime; project setup remains
+owned by the native Python inputs. These source-only jobs retain GitHub logs and
+do not publish a server artifact.
+
 Public CI uses GitHub-hosted Linux and only these synthetic inputs. Private
 estate validation belongs on the organization's self-hosted runners. A passing
 configuration check is not live deployment or authenticated client acceptance.
