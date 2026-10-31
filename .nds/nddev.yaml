@@ -1,4 +1,5 @@
-apiVersion: nddev.ai/v1alpha3
+# std-0001 repository manifest — schema: `nddev schema manifest`.
+apiVersion: nddev.ai/v1alpha4
 kind: Repository
 metadata:
   id: nddev-device-sync-estate-example
@@ -7,7 +8,6 @@ metadata:
 spec:
   standard:
     id: std-0001
-    version: 3.0.0
   role: component
   profiles:
   - docs
@@ -20,41 +20,14 @@ spec:
   consumes:
   - contract: nddev-device-sync-server/compose
     via: .gitmodules
-  variations:
-  - paths:
-    - module.yaml
-    purpose: manifest
-    reason: NDS module descriptor owned by the product standards corpus.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-22'
-      origin: document
-      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
-  - paths:
-    - standarts.lock
-    purpose: lock
-    reason: NDS contract lock pinning the standards source.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-22'
-      origin: document
-      reference: standarts/decisions/0013-estate-hygiene-and-standards-adoption.md
-  - paths:
-    - config
-    - modules
-    purpose: infrastructure
-    reason: Synthetic self-hosting values and exact public server Gitlink owned by
-      this example.
-    decision:
-      state: approved
-      by: rldyourmnd
-      date: '2026-10-24'
-      origin: document
-      reference: README.md
   modules:
   - .
+  adaptations:
+  - docs/decisions/0001-nds-contract-locations.md
+  extensions:
+    nddev.standards-system:
+      standards:
+      - std-0001
   adapters:
   - claude
   - cursor
