@@ -29,11 +29,11 @@ jobs:
           enable-cache: 'false'
       - run: uv run --locked python scripts/check.py
       - name: Prepare shared source tools
-        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@13fcf59d2819c8ba9aaee9da0c1828090f686291
+        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
         with:
           capability: security
       - name: Validate the shared source contract
-        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/ci@13fcf59d2819c8ba9aaee9da0c1828090f686291
+        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/ci@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
         with:
           contract: .github/nddev-ci.toml
           upload: never
