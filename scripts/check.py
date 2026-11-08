@@ -29,7 +29,7 @@ def main():
     actual = git("-C", str(SOURCE), "rev-parse", "HEAD")
     assert actual == commit, "Initialize the exact server Gitlink"
     assert not git("-C", str(SOURCE), "status", "--porcelain"), "Preserve modified source"
-    lock = tomllib.loads((ROOT / "standarts.lock").read_text())
+    lock = tomllib.loads((ROOT / "contracts.lock").read_text())
     assert lock["source_repo"] == "NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync"
     assert lock["license"] == "AGPL-3.0-only"
     values = dict(
