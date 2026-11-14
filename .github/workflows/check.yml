@@ -22,18 +22,18 @@ jobs:
           persist-credentials: false
           submodules: true
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
         with:
           version: '0.13.5'
           python-version-file: .python-version
           enable-cache: 'false'
       - run: uv run --locked python scripts/check.py
       - name: Prepare shared source tools
-        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
+        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/tools@068c887870bc3cd34ecd69fd762aea3bfd9a4171 # nddev-cicd-v0.6.20
         with:
           capability: security
       - name: Validate the shared source contract
-        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/ci@c192c6adcf22088abf456635de614d42e8fa3f8d # nddev-cicd-v0.6.20
+        uses: NDDev-Technocracy-Standarts/std-0004-ci-cd-workflows/.github/actions/ci@068c887870bc3cd34ecd69fd762aea3bfd9a4171 # nddev-cicd-v0.6.20
         with:
           contract: .github/nddev-ci.toml
           upload: never
