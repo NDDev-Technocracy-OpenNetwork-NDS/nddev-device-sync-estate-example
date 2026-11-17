@@ -17,10 +17,13 @@ Clone with `--recurse-submodules`, prepare Python 3.15 with uv and run:
 ```sh
 uv sync --locked
 just check
+# On an admitted execution host:
+just test
 just render
 ```
 
-`check` validates this repository's source selection and renders the real
+`check` validates source selection and synthetic input constraints without Docker.
+`test` retains the full validation and renders the real
 upstream Compose contract without starting containers. Docker Compose is required.
 `render` prints that same synthetic configuration. Neither command reads a real
 estate, contacts a server, starts maintenance or creates credentials.
@@ -57,3 +60,10 @@ or require a credential to validate the example.
 
 [GitHub Releases](https://github.com/NDDev-Technocracy-OpenNetwork-NDS/nddev-device-sync-estate-example/releases)
 is the release journal. This source example does not publish a server release.
+
+
+The source check uses the SDK-selected installed Python through
+`uv python find --no-python-downloads`; it neither syncs nor creates an
+environment. All Compose source, port, capability, secret/network and read-only
+assertions remain in the same checker and run under `just test`/`just verify`.
+No service or private estate state is started or changed.
