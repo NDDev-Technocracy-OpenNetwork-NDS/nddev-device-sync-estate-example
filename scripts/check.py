@@ -20,7 +20,9 @@ def git(*arguments):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--render", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--render", action="store_true")
+    mode.add_argument("--source-only", action="store_true")
     args = parser.parse_args()
     assert git("config", "-f", ".gitmodules", "submodule.modules/server.url") == PUBLIC
     selected = git("ls-files", "--stage", "modules/server").split()
@@ -42,6 +44,10 @@ def main():
     assert values["NDS_HTTPS_BIND"] == "127.0.0.1"
     assert values["NDS_SECRETS_DIRECTORY"] == "/run/nds-example/secrets"
     assert values["NDS_TLS_DIRECTORY"] == "/run/nds-example/tls"
+    if args.source_only:
+        print("Source selection and synthetic inputs valid; native Compose check not run.")
+        return
+
     # The Gitlink owns the source identity. No second SHA ledger in env files.
     environment = {k: v for k, v in os.environ.items() if not k.startswith("NDS_")}
     environment["NDS_SOURCE_COMMIT"] = commit
